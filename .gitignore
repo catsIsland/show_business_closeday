@@ -30,7 +30,6 @@
 
 /public/packs
 /public/packs-test
-/public/tag/*
 /node_modules
 /yarn-error.log
 yarn-debug.log*
