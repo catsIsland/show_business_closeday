@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+/*全体*/
+.close_days_wrapper {
+  max-width: 450px;
+  margin: 0 auto;
+  color: #666;
+}
+
+.close_days_title {
+  text-align: center;
+  font-size: 20px;
+  width: 100%;
+  margin: 10px 0 10px 0;
+  color: black;
+}
+
+#close_days_header {
+  text-align: left;
+  font-size: 16px;
+  width: 100%;
+  margin: 10px 0px 0px 5px;
+ }
+
+/*カレンダー*/
+#close_days_calendar {
+  text-align: center;
+  width: 100%;
+}
+
+/* */
+#close_day_prev_next {
+  text-align: center;
+  margin: auto;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#close_days_calender table {
+  border-collapse: collapse;
+  width: 100%;
+  display: inline-table;
+}
+
+#close_days_calender th {
+  color: #000;
+}
+
+#close_days_calender th,
+#close_days_calender td {
+  padding: 10px;
+  border: 1px solid #e2e2e2;
+  text-align: center;
+  vertical-align: top;
+}
+
+/*日曜日*/
+#close_days_calender td:first-child {
+  color: red;
+}
+
+/*土曜日*/
+#close_days_calender td:last-child {
+  color: blue;
+}
+
+/*前後月の日付*/
+#close_days_calender td.disabled {
+  color: #ccc;
+}
+
+/*本日*/
+#close_days_calender td.today {
+  background-color: #D65E72;
+  color: #fff;
+}
+
+/* 休日 */
+#close_days_calender td.close_day {
+  background-color: #CC0000;
+  color: #fff;
+}

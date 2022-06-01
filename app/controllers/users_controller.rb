@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include Common
+  require "json"
 
   def new
     render :layout => 'users/application'
@@ -30,4 +32,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :mail, :password, :password_confirmation)
   end
+
 end
