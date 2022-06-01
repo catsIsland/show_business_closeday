@@ -1,3 +1,11 @@
+@import 'common/extend.scss';
+@import 'common/fonts.scss';
+@import 'common/minxi.scss';
+@import 'common/variables.scss';;
+@import 'layouts/main.scss';
+@import 'layouts/responsive.scss';
+@import 'common/global.scss'
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -13,3 +21,4 @@
  *= require_tree .
  *= require_self
  */
+

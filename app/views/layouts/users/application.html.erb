@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'application_head' %>
+  <body>
+    <% if @current_user %>
+      <%= render 'header_navi' %>
+    <% end %>
+    <div class="main">
+      <%= yield %>
+    </div>
+  </body>
+</html>
