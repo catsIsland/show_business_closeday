@@ -1,0 +1,8 @@
+{
+  "publish": true,
+  "element_id_flag": true,
+  "element_id": "sbd_insert_element",
+  "background_color": "orange",
+  "font_color": "white",
+  "title": "定休日カレンダー"
+}

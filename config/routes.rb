@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
-  
-  get 'settings', to: 'users#me'  
-  
-  post 'login', to: 'sessions#create'  
-  
-  delete 'logout', to: 'sessions#destroy'  
+  root 'home#index'
 
+  get 'settings', to: 'users#me'
   get 'home', to: 'home#index'
 
-  resources :users, only: %i[new create] 
+  post 'login', to: 'sessions#create'
+  post 'close_days', to: 'close_days#data'
+
+  delete 'logout', to: 'sessions#destroy'
+
+  resources :users, only: %i[new create]
   
-  root 'home#index'
 end
