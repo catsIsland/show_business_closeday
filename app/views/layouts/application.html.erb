@@ -2,6 +2,9 @@
 <html>
   <%= render 'application_head' %>
   <body>
+    <% if @current_user %>
+      <%= render 'header_navi' %>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>
