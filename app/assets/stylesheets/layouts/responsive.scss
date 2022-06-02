@@ -8,14 +8,14 @@
 
 //end 1200px
 @media screen and (max-width: 1200px) {
-    .container {
+    .authentication_container {
         width: calc( 100% - 30px);
         max-width: 100%;
     }
 }
 
 @media screen and (min-width: 1024px) {
-    .container {
+    .authentication_container {
         max-width: 1200px;
     }
 }
