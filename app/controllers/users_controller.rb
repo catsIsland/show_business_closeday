@@ -3,8 +3,12 @@ class UsersController < ApplicationController
   require "json"
 
   def new
-    render :layout => 'users/application'
-    @user = User.new(flash[:user])
+    unless @current_user
+      render :layout => 'users/application'
+      @user = User.new(flash[:user])
+      return
+    end
+    redirect_to settings_path
   end
 
   def create
@@ -22,8 +26,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def me
-    
+  def settings
+    # arr = [0, 6]
+    # regularly_closed_day(arr, Date.today).to_s
   end
 
 

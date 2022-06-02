@@ -20,4 +20,12 @@ module Common
   def this_next_month
     Date.today.next_month.month
   end
+
+  def regularly_closed_day(day_of_week_array, date)
+    start_date = date
+    end_date = date.end_of_month
+    # day of the week in 0-6. Sunday is day-of-week 0; Saturday is day-of-week 6.
+    result = (start_date..end_date).to_a.select {|k| day_of_week_array.include?(k.wday)}
+    result.map {|res| res.strftime('%-d').to_i }
+  end
 end

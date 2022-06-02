@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
   def index
-    render :layout => 'users/application'
+    unless @current_user
+      render :layout => 'users/application'
+      return
+    end
+    redirect_to settings_path
   end
 end

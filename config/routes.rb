@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
 
-  get 'settings', to: 'users#me'
+  get 'settings', to: 'users#settings'
   get 'home', to: 'home#index'
 
   post 'login', to: 'sessions#create'
