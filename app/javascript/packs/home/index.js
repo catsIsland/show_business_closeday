@@ -1,3 +1,1 @@
-document.addEventListener('DOMContentLoaded', () => {
-  console.log(document.getElementById('hello'));
-});
+var this_month_checked = $('.this_month #calendar .calendar_checkbox:checked');

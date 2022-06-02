@@ -19,3 +19,5 @@ require("channels")
 
 import "bootstrap";
 import "../stylesheets/application";
+import "./home/calendar";
+import "./home/index";

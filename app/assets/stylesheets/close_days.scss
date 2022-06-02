@@ -1,3 +1,90 @@
 // Place all the styles related to the close_days controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@charset "utf-8";
+$background_color: #6dabe4;
+
+/*全体*/
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+    color: #666;
+}
+#header {
+    text-align: center;
+    font-size: 24px;
+    width: 100%;
+    margin: 1rem 0 0;
+}
+
+/*カレンダー*/
+#calendar {
+    text-align: center;
+    width: 100%;
+}
+table {
+    outline: 2px solid #ddd;
+    border-collapse: collapse;
+    width: 100%;
+}
+th {
+    color: #000;
+}
+th, td {
+    outline: 1px solid #ddd;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+/*日曜日*/
+td:first-child {
+    color: red;
+}
+/*土曜日*/
+td:last-child {
+    color: blue;
+}
+/*前後月の日付*/
+td.disabled {
+    color: #ccc;
+}
+/*本日*/
+td.today {
+    background-color: #FACBB2;
+    color: #fff;
+}
+
+.calendar_checkbox {
+  margin: 5px auto auto auto !important;
+  cursor: pointer;
+  width: auto;
+}
+
+.this_month {
+  width: 49%;
+  display: inline-block;
+}
+
+.next_month {
+  @extend .this_month;
+  margin: 0 0 0 15px;
+}
+
+.weekly_text {
+  color: #000;
+}
+
+.weekly_close_days {
+  background-color: $background_color !important;
+  border-color: $background_color !important;
+  padding: 5px 30px !important;
+  box-shadow: 1px 1px 1px 1px #ddd;
+  &:hover {
+    box-shadow: unset;
+  }
+}
+
+.weekly_setting label,
+.weekly_setting input {
+  cursor: pointer;
+}
