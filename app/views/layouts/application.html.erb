@@ -6,6 +6,7 @@
    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
    crossorigin="anonymous"></script>
   <body>
+    <%= hidden_field_tag :account_id, session[:user_id] %>
     <% if @current_user %>
       <%= render 'header_navi' %>
     <% end %>

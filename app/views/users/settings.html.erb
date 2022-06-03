@@ -9,34 +9,12 @@
       </div>
       <div class="col-8">
         <div class="mb-3">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-            <label class="form-check-label" for="inlineCheckbox1">日</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">月</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">火</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">水</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">木</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">金</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-            <label class="form-check-label" for="inlineCheckbox2">土</label>
-          </div>
+          <% week_day_numbers.each do |number| %>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input week_day_numbers" type="checkbox" id="week_day_<%= number %>" value="<%= number %>">
+              <label class="form-check-label" for="week_day_<%= number %>"><%= week_day_names[number] %></label>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -47,7 +25,7 @@
       <div class="col-8">
         <div class="mb-3">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <input class="form-check-input" type="checkbox" id="repeat_weekly_days" value="1">
           </div>
         </div>
       </div>
@@ -57,7 +35,7 @@
       </div>
       <div class="col-8">
         <div class="mb-3">
-          <button type="button" class="btn btn-primary weekly_close_days">保存</button>
+          <div id="save_weekly_data" class="btn btn-primary weekly_close_days">保存</div>
         </div>
       </div>
     </div>
