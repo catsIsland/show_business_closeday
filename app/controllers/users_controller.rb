@@ -3,27 +3,35 @@ class UsersController < ApplicationController
   require "json"
 
   def new
-    unless @current_user
-      render :layout => 'users/application'
-      @user = User.new(flash[:user])
-      return
-    end
-    redirect_to settings_path
+    # unless @current_user
+    #   render :layout => 'users/application'
+    #   @user = User.new(flash[:user])
+    #   return
+    # end
+    # redirect_to settings_path
+    @user = User.new(flash[:user])
   end
 
   def create
-    render :layout => 'users/application'
+    # render :layout => 'users/application'
 
     user = User.new(user_params)
-    if user.save
-      session[:user_id] = user.id
-      redirect_to settings_path
-    else
-      redirect_to :back, flash: {
-        user: user,
-        error_messages: user.errors.full_messages
-      }
+    begin
+      if user.save
+        session[:user_id] = user.id
+        redirect_to settings_path
+      else
+        # redirect_to :back, flash: {
+        #   user: user,
+        #   error_messages: user.errors.full_messages
+        # }
+  
+      end  
+    
+    rescue => e
+      puts e
     end
+    
   end
 
   def week_day_numbers
