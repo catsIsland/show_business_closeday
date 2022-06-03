@@ -1,5 +1,6 @@
 {
   "publish": true,
+  "weekly_repeat": true,
   "element_id_flag": true,
   "element_id": "sbd_insert_element",
   "background_color": "orange",

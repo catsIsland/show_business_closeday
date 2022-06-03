@@ -1,34 +1,37 @@
 class CloseDaysController < ApplicationController
-  protect_from_forgery :except => [:data]
   include Common
   require "json"
 
-  def data
+  before_action :check_account_id, only: [:data :weekly_data]
+
+  protect_from_forgery :except => [:data]
+  
+  def check_account_id
     unless params[:account_id]
       data = { result: false }
       render json: data
       return
     end
+    @account_id = params[:account_id]
+  end
 
+  def data
     # 今月データ取得
-    this_month_file_path = "data/close_days/#{1}/#{this_year}/#{this_month}.csv"
-    File.open(this_month_file_path) do |f|
-      @this_month_data = f.read.split(',').grep(/\d+/, &:to_i)
-    end
+    this_month_data(@account_id)
 
     # 翌月データ取得
-    next_month_file_path = "data/close_days/#{1}/#{this_next_year}/#{this_next_month}.csv"
-    File.open(next_month_file_path) do |f|
-      @next_month_data = f.read.split(',').grep(/\d+/, &:to_i)
-    end
+    next_month_data(@account_id)
 
     # 設定データ取得
-    setting_file_path = "data/setting/#{1}/setting.json"
-    File.open(setting_file_path) do |f|
-      @setting_file_data = f.read
-    end
+    setting_file_data(@account_id)
 
     data = { result: true, setting: @setting_file_data, this_month: @this_month_data, next_month: @next_month_data }
+    render json: data
+  end
+
+  def weekly_data
+
+    data = { result: 1 }
     render json: data
   end
 
