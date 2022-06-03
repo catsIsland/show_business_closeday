@@ -2,7 +2,7 @@ class CloseDaysController < ApplicationController
   include Common
   require "json"
 
-  before_action :check_account_id, only: [:data :weekly_data]
+  before_action :check_account_id, only: [:data, :weekly_data]
 
   protect_from_forgery :except => [:data]
   
