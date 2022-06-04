@@ -25,6 +25,7 @@ function show_close_days_calendar(id, url) {
       if (result.result) {
         close_days_this_month = result.this_month;
         close_days_next_month = result.next_month;
+        console.log(close_days_this_month)
         close_days_setting = $.parseJSON(result.setting);
         close_days_element = close_days_setting.element_id;
         close_days_title_text = close_days_setting.title;

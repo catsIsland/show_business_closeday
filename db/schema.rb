@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_31_024147) do
+ActiveRecord::Schema.define(version: 2022_06_03_141304) do
+
+  create_table "settings", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "publish", default: false, null: false
+    t.boolean "weekly_repeat", default: true, null: false
+    t.boolean "element_id_flag", default: true, null: false
+    t.string "title"
+    t.string "element_name"
+    t.string "background_color", default: "CC0000", null: false
+    t.string "font_color", default: "FFFFFF", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "weekly_days"
+    t.index ["user_id"], name: "index_settings_on_user_id"
+  end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -24,4 +39,5 @@ ActiveRecord::Schema.define(version: 2022_05_31_024147) do
     t.index ["name", "mail"], name: "index_users_on_name_and_mail", unique: true
   end
 
+  add_foreign_key "settings", "users"
 end

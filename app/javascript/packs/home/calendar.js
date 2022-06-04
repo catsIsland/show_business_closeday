@@ -65,7 +65,7 @@ function createProcess(year, month) {
         } else {
           today_class = '';
         }
-        calendar += "<td class='" + today_class + "'><span class='calendar_td_text'>" + count + "</span><input type='checkbox' class='calendar_checkbox' data-val='" + count + "'></td>";
+        calendar += "<td class='" + today_class + " other_day'><span class='calendar_td_text'>" + count + "</span><input type='checkbox' class='calendar_checkbox' id='day_"+ count +"' value='" + count + "'></td>";
       }
     }
     calendar += "</tr>";

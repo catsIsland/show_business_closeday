@@ -7,6 +7,10 @@
     <ul class="nav nav-right">
       <% if @current_user %>
           <li>
+            <i class="zmdi zmdi-account material-icons-name"></i>
+            <span class="text-white"><%= session[:user_name] %>様</span>
+          </li>
+          <li>
             <i class="zmdi zmdi-settings material-icons-name"></i>
             <%= link_to '設定ページ', settings_path, class: '' %>
           </li>

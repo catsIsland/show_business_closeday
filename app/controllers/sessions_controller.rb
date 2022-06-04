@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
     user = User.find_by(name: params[:session][:name])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
+      session[:user_name] = user.name
+      session[:user_mail] = user.mail
       redirect_to settings_path
     else
       render 'home/index'

@@ -1,17 +1,17 @@
 <div class="card">
   <div class="card-header">
-    定休日設定
+    詳細設定
   </div>
   <div class="card-body weekly_setting">
     <div class="row">
       <div class="col-3">
-        <p class="text-end weekly_text">毎週：</p>
+        <p class="text-end weekly_text">毎週定休日：</p>
       </div>
       <div class="col-8">
         <div class="mb-3">
           <% week_day_numbers.each do |number| %>
             <div class="form-check form-check-inline">
-              <input class="form-check-input week_day_numbers" type="checkbox" id="week_day_<%= number %>" value="<%= number %>">
+              <input class="form-check-input week_day_numbers" type="checkbox" id="week_day_<%= number %>" value="<%= number %>" <%= 'checked' if @setting_weekly_days.include?(number) %>>
               <label class="form-check-label" for="week_day_<%= number %>"><%= week_day_names[number] %></label>
             </div>
           <% end %>
@@ -25,7 +25,7 @@
       <div class="col-8">
         <div class="mb-3">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="repeat_weekly_days" value="1">
+            <input class="form-check-input" type="checkbox" id="repeat_weekly_days" value="1" <%= 'checked' if @setting_weekly_repeat %>>
           </div>
         </div>
       </div>
@@ -52,12 +52,16 @@
   <div class="card-body">
     <div class="wrapper">
       <div class="this_month">
+        <input type="hidden" id="this_month_weekly_close_days" value="<%= @this_month_weekly_close_days.join(",") %>">
+        <input type="hidden" id="this_month_data" value="<%= @this_month_data.join(",") %>">
         <!-- xxxx年xx月を表示 -->
         <h1 id="header"></h1>
         <!-- カレンダー -->
         <div id="calendar"></div>
       </div>
       <div class="next_month">
+        <input type="hidden" id="next_month_weekly_close_days" value="<%= @next_month_weekly_close_days.join(",") %>">
+        <input type="hidden" id="next_month_data" value="<%= @next_month_data.join(",") %>">
         <!-- xxxx年xx月を表示 -->
         <h1 id="header"></h1>
         <!-- カレンダー -->
@@ -66,7 +70,7 @@
     </div>
     <div class="row mt-5">
       <div class="col-12 text-center">
-        <button type="button" class="btn btn-primary weekly_close_days">保存</button>
+        <div id="save_other_close_days" class="btn btn-primary weekly_close_days">保存</div>
       </div>
     </div>
   </div>
