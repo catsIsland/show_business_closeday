@@ -74,7 +74,8 @@ class UsersController < ApplicationController
   def tag_url
     account_id = session[:user_id]
     setting = Setting.find_by(user_id: account_id)
-    tag_url = '<script type="text/javascript" src="' + request.protocol + request.subdomain + request.domain + '/tag/' + setting.tag_name.to_s + '.js"></script>'
+    subdomain = request.subdomain.present? ? "#{request.subdomain}." : ""
+    tag_url = '<script type="text/javascript" src="' + request.protocol + subdomain + request.domain + '/tag/' + setting.tag_name.to_s + '.js"></script>'
   end
 
   helper_method :week_day_numbers, :week_day_names, :get_dai_data, :tag_url
@@ -87,18 +88,19 @@ class UsersController < ApplicationController
 
   def save_js_tag(account_id, tag_name)
     path = "#{Rails.public_path}/tag/#{tag_name}.js"
+    subdomain = request.subdomain.present? ? "#{request.subdomain}." : ""
     tag = %[
       $.when(
         close_days_script = document.createElement('script'),
         close_days_script.type = 'text/javascript',
-        close_days_script.src = "#{request.protocol}#{request.subdomain}#{request.domain}/js/close_days.js?" + Date.now(),
+        close_days_script.src = "#{request.protocol}#{subdomain}#{request.domain}/js/close_days.js?" + Date.now(),
         close_days_script.charset = 'UTF-8',
         document.getElementsByTagName('body')[0].appendChild(close_days_script),
-        close_days_css = '<link rel="stylesheet" rel="nofollow" href="#{request.protocol}#{request.subdomain}#{request.domain}/css/close_days.css?' + Date.now() + '" type="text/css">',
+        close_days_css = '<link rel="stylesheet" rel="nofollow" href="#{request.protocol}#{subdomain}#{request.domain}/css/close_days.css?' + Date.now() + '" type="text/css">',
         $('head').append(close_days_css)
       ).done(function () {
         $(document).ready(function () {
-          url = "#{request.protocol}#{request.subdomain}#{request.domain}/close_days";
+          url = "#{request.protocol}#{subdomain}#{request.domain}/close_days";
           let close_days_fun_count = 0;
           let close_days_interval = setInterval(function () {
             if (typeof show_close_days_calendar == 'function') {
