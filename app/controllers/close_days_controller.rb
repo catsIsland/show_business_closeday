@@ -4,8 +4,8 @@ class CloseDaysController < ApplicationController
 
   before_action :check_account_id, only: [:data, :setting_detail, :other_close_days]
 
-  protect_from_forgery :except => [:data]
-  
+  protect_from_forgery :except => [:data, :setting_detail, :other_close_days]
+
   def check_account_id
     unless params[:account_id]
       data = { result: false }
@@ -15,6 +15,7 @@ class CloseDaysController < ApplicationController
     @account_id = params[:account_id]
   end
 
+  #【フロント】タグからpost
   def data
     this_month, next_month = this_month_allof_close_days(@account_id)
     
@@ -25,6 +26,7 @@ class CloseDaysController < ApplicationController
     render json: data
   end
 
+  #【管理画面】詳細設定
   def setting_detail
     result = false
     weekly_days = params['weekly_close_days'].map(&:to_i).join(',')
@@ -65,6 +67,7 @@ class CloseDaysController < ApplicationController
     render json: data
   end
 
+  #【管理画面】定休日以外休日
   def other_close_days
     this_month_close_days =  params['this_month_close_days'].map(&:to_i).join(',')
     next_month_close_days = params['next_month_close_days'].map(&:to_i).join(',')
@@ -81,8 +84,4 @@ class CloseDaysController < ApplicationController
     data = { result: result }
     render json: data
   end
-  private
-
-
-  
 end

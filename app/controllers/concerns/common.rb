@@ -21,6 +21,7 @@ module Common
     Date.today.next_month.month
   end
 
+  # 毎週定休日から日付取得
   def dates_of_weekly(day_of_week_array, date)
     start_date = date
     end_date = date.end_of_month
@@ -29,6 +30,7 @@ module Common
     result.map {|res| res.strftime('%-d').to_i }
   end
 
+  #【フロント】全ての日付を取得
   def this_month_allof_close_days(account_id)
     setting = Setting.find_by(user_id: account_id)
     setting_weekly_days = setting.weekly_days.blank? ? [] : setting.weekly_days.split(',').map(&:to_i)
@@ -45,6 +47,7 @@ module Common
     return this_month_day_str, next_month_day_str
   end
 
+  # 設定データ取得
   def setting_data(account_id)
     setting = Setting.find_by(user_id: account_id)
     data = {
@@ -58,6 +61,7 @@ module Common
     return data
   end
 
+  # 第休曜日から日付取得 (今月 + 来月)
   def date_of_dai_close_day(account_id)
     dai_number_close_day = DaiNumberCloseDay.where(user_id: account_id)
     this_month_dai_number_close_day = []
@@ -75,11 +79,7 @@ module Common
     return this_month_dai_number_close_day, next_month_dai_number_close_day
   end
 
-  def delete_all_file_data(account_id)
-    FileUtils.rm_rf "data/close_days/#{account_id}/"
-    FileUtils.rm_rf "data/setting/#{account_id}"
-  end
-
+  # 第休曜日から日付計算
   def get_dai_close_days(account_id, dai_close_day_number, dai_week_number, date)
     # 第1〜第５
     name_of_week_day = %w[sundays mondays tuesdays wednesdays thursdays fridays saturdays]

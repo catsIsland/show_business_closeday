@@ -65,20 +65,6 @@ class UsersController < ApplicationController
 
   private
 
-  def date_from_week_and_day(number_of_week, number_of_week_day)
-    # 当月の初日を出す
-    d = Date.today.beginning_of_month
-    
-    # 初週の日数
-    first_week = 7 - d.wday
-
-    day = first_week + (7 * ( number_of_week - 2)) + number_of_week_day + 1 # 日曜始まりにするためにwday+1にする
-
-    # その月に存在しない日になったらfalse
-    return false if d.end_of_month.day < day || day < 1
-    day
-  end
-
   def user_params
     params.require(:user).permit(:name, :mail, :password, :password_confirmation)
   end
