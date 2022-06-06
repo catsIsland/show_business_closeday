@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id
       Setting.create(user_id: user.id)
+      make_tag(user.id)
       redirect_to settings_path
     else
       redirect_back fallback_location: new_user_path, flash: {
@@ -69,4 +70,38 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :mail, :password, :password_confirmation)
   end
 
+  def make_tag(account_id)
+    o = [('0'..'9'),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
+    string = (0...25).map { o[rand(o.length)] }.join
+    path = "#{Rails.public_path}/tag/#{string}_#{account_id}.js"
+    tag = %[
+      $.when(
+        close_days_script = document.createElement('script'),
+        close_days_script.type = 'text/javascript',
+        close_days_script.src = "http://#{request.domain}/js/close_days.js?" + Date.now(),
+        close_days_script.charset = 'UTF-8',
+        document.getElementsByTagName('body')[0].appendChild(close_days_script),
+        close_days_css = '<link rel="stylesheet" rel="nofollow" href="http://#{request.domain}/css/close_days.css?' + Date.now() + '" type="text/css">',
+        $('head').append(close_days_css)
+      ).done(function () {
+        $(document).ready(function () {
+          url = "http://#{request.domain}/close_days";
+          let close_days_fun_count = 0;
+          let close_days_interval = setInterval(function () {
+            if (typeof show_close_days_calendar == 'function') {
+              show_close_days_calendar(#{account_id}, url);
+              clearInterval(close_days_interval);
+            }
+            if (++close_days_fun_count > 1000) {
+              clearInterval(close_days_interval);
+            }
+          }, 100);
+        });
+      });
+          ]
+    
+    File.open(path, "w+") do |f|
+      f.write(tag)
+    end
+  end
 end

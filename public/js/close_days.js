@@ -11,9 +11,9 @@ let element_id_flag;
 var showDate = new Date(today.getFullYear(), today.getMonth(), 1);
 
 // 初期表示
-function show_close_days_calendar(id, url) {
+function show_close_days_calendar(account_id, url) {
   const close_days_acc_data = {
-    account_id: id
+    account_id: account_id
   }
   $.ajax({
     type: "post",
