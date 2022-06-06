@@ -16,6 +16,9 @@
 #  index_users_on_name_and_mail  (name,mail) UNIQUE
 #
 class User < ApplicationRecord
+  has_many :settings, dependent: :destroy
+  has_many :DaiNumberCloseDay, dependent: :destroy
+
   has_secure_password
   
   validates :name,

@@ -18,5 +18,5 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class DaiNumberCloseDay < ApplicationRecord
-  
+  belongs_to :user
 end

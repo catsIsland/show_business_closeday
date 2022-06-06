@@ -48,9 +48,6 @@ class UsersController < ApplicationController
   def settings
     account_id = session[:user_id]
     @dai_week_name = ["第-1", "第-2", "第-3", "第-4"]
-
-    user = User.where(id: account_id)
-    user.destroy_all
     
     # 設定データ
     @setting = Setting.find_by(user_id: account_id)
@@ -79,6 +76,15 @@ class UsersController < ApplicationController
     setting = Setting.find_by(user_id: account_id)
     subdomain = request.subdomain.present? ? "#{request.subdomain}." : ""
     tag_url = '<script type="text/javascript" src="' + request.protocol + subdomain + request.domain + '/tag/' + setting.tag_name.to_s + '.js"></script>'
+  end
+
+  def delete_user
+    user_id = params[:id].to_i
+    user = User.find_by(id: user_id)
+    setting = Setting.find_by(user_id: user_id)
+    dai_number = DaiNumberCloseDay.find_by(user_id: user_id)
+
+    user.destroy if  user.present?
   end
 
   helper_method :week_day_numbers, :week_day_names, :get_dai_data, :tag_url

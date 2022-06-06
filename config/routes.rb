@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'settings', to: 'users#settings'
   get 'home', to: 'home#index'
+  get 'delete_user', to: 'users#delete_user'
 
   post 'login', to: 'sessions#create'
   post 'close_days', to: 'close_days#data'
