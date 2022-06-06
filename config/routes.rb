@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   post 'login', to: 'sessions#create'
   post 'close_days', to: 'close_days#data'
-  post 'save_weekly_data', to: 'close_days#weekly_data'
+  post 'save_setting_detail', to: 'close_days#setting_detail'
   post 'save_other_close_days', to: 'close_days#other_close_days'
 
   delete 'logout', to: 'sessions#destroy'

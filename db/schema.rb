@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_03_141304) do
+ActiveRecord::Schema.define(version: 2022_06_06_061449) do
+
+  create_table "dai_number_close_days", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "dai_week_number"
+    t.string "dai_close_day_number"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_dai_number_close_days_on_user_id"
+  end
 
   create_table "settings", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -24,6 +33,8 @@ ActiveRecord::Schema.define(version: 2022_06_03_141304) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "weekly_days"
+    t.string "others_close_days"
+    t.string "next_month_others_close_days"
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
@@ -39,5 +50,6 @@ ActiveRecord::Schema.define(version: 2022_06_03_141304) do
     t.index ["name", "mail"], name: "index_users_on_name_and_mail", unique: true
   end
 
+  add_foreign_key "dai_number_close_days", "users"
   add_foreign_key "settings", "users"
 end

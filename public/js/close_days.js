@@ -25,17 +25,27 @@ function show_close_days_calendar(id, url) {
       if (result.result) {
         close_days_this_month = result.this_month;
         close_days_next_month = result.next_month;
-        console.log(close_days_this_month)
-        close_days_setting = $.parseJSON(result.setting);
-        close_days_element = close_days_setting.element_id;
-        close_days_title_text = close_days_setting.title;
-        element_id_flag = close_days_setting.element_id_flag;
-        if (close_days_setting.publish) {
+
+        close_days_setting = result.setting;
+        close_days_element = close_days_setting['element_name'];
+        close_days_title_text = close_days_setting['title'];
+        element_id_flag = close_days_setting['element_id_flag'];
+        background_color = close_days_setting['background_color'];
+        font_color = close_days_setting['font_color'];
+
+        if (close_days_setting['publish']) {
           close_days_show_process(today, close_days_this_month);
         }
       }
     }
   });
+}
+
+function make_css() {
+  style = '';
+  style += 'background-color:' + background_color + ';';
+  style += 'color:' + font_color + ';';
+  return style
 }
 
 // 前の月表示
@@ -143,7 +153,7 @@ function close_days_create_process(year, month, close_days) {
         // 当月の日付を曜日に照らし合わせて設定
         count++;
         if (close_days.includes(count)) {
-          calendar += "<td class='close_day'>" + count + "</td>";
+          calendar += "<td class='close_day' style='"+ make_css() +"'>" + count + "</td>";
         } else {
           calendar += "<td>" + count + "</td>";
         }

@@ -5,6 +5,19 @@
   <div class="card-body weekly_setting">
     <div class="row">
       <div class="col-3">
+        <p class="text-end weekly_text text-danger">公開する：</p>
+      </div>
+      <div class="col-8">
+        <div class="">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="publish" value="1" <%= 'checked' if @setting.publish %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-3">
         <p class="text-end weekly_text">毎週定休日：</p>
       </div>
       <div class="col-8">
@@ -18,18 +31,91 @@
         </div>
       </div>
     </div>
+
+    <%# 第 %>
+    <input type="hidden" id="this_month_dai_number_close_day" value="<%= @this_month_dai_number_close_day.join(',') %>">
+    <input type="hidden" id="next_month_dai_number_close_day" value="<%= @next_month_dai_number_close_day.join(',') %>">
+    <% @dai_week_name.each_with_index do |name, index|%>
+    <% num = index + 1 %>
+    <% arr = get_dai_data(num) %>
+      <div class="row">
+        <div class="col-3">
+          <p class="text-end weekly_text"><%= name %>の休日：</p>
+        </div>
+        <div class="col-8">
+          <div class="mb-3 dai_<%= num %>">
+            <% week_day_numbers.each do |number| %>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input dai_day_numbers" type="checkbox" id="dai_day_<%= number %>" value="<%= number %>" <%= 'checked' if arr.include?(number) %>>
+                <label class="form-check-label" for="dai_day_<%= number %>"><%= week_day_names[number] %></label>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <hr>
     <div class="row">
       <div class="col-3">
-        <p class="text-end weekly_text">毎月繰り返し設定にする：</p>
+        <p class="text-end weekly_text">id値である：</p>
       </div>
       <div class="col-8">
         <div class="mb-3">
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="repeat_weekly_days" value="1" <%= 'checked' if @setting_weekly_repeat %>>
+            <input class="form-check-input" type="checkbox" id="element_id_flag" value="1" checked disabled>
           </div>
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-3">
+        <p class="text-end weekly_text">表示要素名：</p>
+      </div>
+      <div class="col-8">
+        <div class="input-group input-group-sm mb-3">
+          <div class="col-sm-4">
+            <input value="<%= @setting.element_name %>" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="element_name">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p class="text-end weekly_text">背景：</p>
+      </div>
+      <div class="col-8">
+        <div class="input-group input-group-sm mb-3">
+          <div class="col-sm-4">
+            <input type="color" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="background_color" value="<%= @setting.background_color.blank? ? '#CC0000' : @setting.background_color %>">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p class="text-end weekly_text">文字色：</p>
+      </div>
+      <div class="col-8">
+        <div class="input-group input-group-sm mb-3">
+          <div class="col-sm-4">
+            <input type="color" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="font_color" value="<%= @setting.font_color.blank? ? '#ffffff' : @setting.font_color %>">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p class="text-end weekly_text">タイトル：</p>
+      </div>
+      <div class="col-8">
+        <div class="input-group input-group-sm mb-3">
+          <div class="col-sm-10">
+            <input type="text" value="<%= @setting.title %>" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="title">
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-3">
       </div>
@@ -53,7 +139,7 @@
     <div class="wrapper">
       <div class="this_month">
         <input type="hidden" id="this_month_weekly_close_days" value="<%= @this_month_weekly_close_days.join(",") %>">
-        <input type="hidden" id="this_month_data" value="<%= @this_month_data.join(",") %>">
+        <input type="hidden" id="others_close_days" value="<%= @others_close_days %>">
         <!-- xxxx年xx月を表示 -->
         <h1 id="header"></h1>
         <!-- カレンダー -->
@@ -61,7 +147,7 @@
       </div>
       <div class="next_month">
         <input type="hidden" id="next_month_weekly_close_days" value="<%= @next_month_weekly_close_days.join(",") %>">
-        <input type="hidden" id="next_month_data" value="<%= @next_month_data.join(",") %>">
+        <input type="hidden" id="next_month_others_close_days" value="<%= @next_month_others_close_days %>">
         <!-- xxxx年xx月を表示 -->
         <h1 id="header"></h1>
         <!-- カレンダー -->
