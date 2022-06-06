@@ -49,12 +49,9 @@ class UsersController < ApplicationController
     account_id = session[:user_id]
     @dai_week_name = ["第-1", "第-2", "第-3", "第-4"]
 
-    user = User.find_by(id: account_id)
-    if user.present?
-      user.name = "test01"
-      user.mail = "test01@gmail.com"
-      user.save
-    end
+    user = User.where(id: account_id)
+    user.destroy_all
+    
     # 設定データ
     @setting = Setting.find_by(user_id: account_id)
     @setting_weekly_days = @setting.weekly_days.blank? ? [] : @setting.weekly_days.split(',').map(&:to_i)
