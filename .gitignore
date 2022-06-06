@@ -36,5 +36,5 @@ yarn-debug.log*
 .yarn-integrity
 
 # Ignore pidfiles, but keep the directory.
-/public/tag/*
-!/public/tag/
+# /public/tag/*
+# !/public/tag/
