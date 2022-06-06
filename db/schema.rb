@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_061449) do
+ActiveRecord::Schema.define(version: 2022_06_06_093132) do
 
   create_table "dai_number_close_days", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -35,13 +35,13 @@ ActiveRecord::Schema.define(version: 2022_06_06_061449) do
     t.string "weekly_days"
     t.string "others_close_days"
     t.string "next_month_others_close_days"
+    t.string "tag_name"
     t.index ["user_id"], name: "index_settings_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "mail", null: false
-    t.boolean "publish", default: false, null: false
     t.boolean "account_delete", default: false, null: false
     t.boolean "admin_authority", default: false, null: false
     t.string "password_digest", null: false

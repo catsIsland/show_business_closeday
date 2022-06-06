@@ -18,7 +18,11 @@ class UsersController < ApplicationController
     if user.save
       session[:user_id] = user.id
       Setting.create(user_id: user.id)
-      make_tag(user.id)
+
+      o = [('0'..'9'),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
+      string = (0...25).map { o[rand(o.length)] }.join
+      
+
       redirect_to settings_path
     else
       redirect_back fallback_location: new_user_path, flash: {
@@ -39,9 +43,16 @@ class UsersController < ApplicationController
   def settings
     account_id = session[:user_id]
     @dai_week_name = ["第-1", "第-2", "第-3", "第-4"]
-
-    # 設定データ
     @setting = Setting.find_by(user_id: account_id)
+
+    # o = [('0'..'9'),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
+    # string = (0...25).map { o[rand(o.length)] }.join
+    # tag_name = "#{string}_#{account_id}"
+    # @setting.tag_name = tag_name
+    # @setting.save
+    # save_js_tag(account_id, tag_name)
+    
+    # 設定データ
     @setting_weekly_days = @setting.weekly_days.blank? ? [] : @setting.weekly_days.split(',').map(&:to_i)
     
     # 定休日の日を取得
@@ -62,7 +73,13 @@ class UsersController < ApplicationController
     dai_number_close_day ? dai_number_close_day['dai_close_day_number'].split(',').map(&:to_i) : []
   end
 
-  helper_method :week_day_numbers, :week_day_names, :get_dai_data
+  def tag_url
+    account_id = session[:user_id]
+    setting = Setting.find_by(user_id: account_id)
+    tag_url = '<script type="text/javascript" src="' + request.protocol + request.domain + '/tag/' + setting.tag_name.to_s + '.js"></script>'
+  end
+
+  helper_method :week_day_numbers, :week_day_names, :get_dai_data, :tag_url
 
   private
 
@@ -70,22 +87,20 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :mail, :password, :password_confirmation)
   end
 
-  def make_tag(account_id)
-    o = [('0'..'9'),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
-    string = (0...25).map { o[rand(o.length)] }.join
-    path = "#{Rails.public_path}/tag/#{string}_#{account_id}.js"
+  def save_js_tag(account_id, tag_name)
+    path = "#{Rails.public_path}/tag/#{tag_name}.js"
     tag = %[
       $.when(
         close_days_script = document.createElement('script'),
         close_days_script.type = 'text/javascript',
-        close_days_script.src = "http://#{request.domain}/js/close_days.js?" + Date.now(),
+        close_days_script.src = "#{request.protocol}#{request.domain}/js/close_days.js?" + Date.now(),
         close_days_script.charset = 'UTF-8',
         document.getElementsByTagName('body')[0].appendChild(close_days_script),
-        close_days_css = '<link rel="stylesheet" rel="nofollow" href="http://#{request.domain}/css/close_days.css?' + Date.now() + '" type="text/css">',
+        close_days_css = '<link rel="stylesheet" rel="nofollow" href="#{request.protocol}#{request.domain}/css/close_days.css?' + Date.now() + '" type="text/css">',
         $('head').append(close_days_css)
       ).done(function () {
         $(document).ready(function () {
-          url = "http://#{request.domain}/close_days";
+          url = "#{request.protocol}#{request.domain}/close_days";
           let close_days_fun_count = 0;
           let close_days_interval = setInterval(function () {
             if (typeof show_close_days_calendar == 'function') {
@@ -104,4 +119,5 @@ class UsersController < ApplicationController
       f.write(tag)
     end
   end
+
 end

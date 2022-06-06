@@ -10,6 +10,7 @@
 #  next_month_others_close_days :string(255)
 #  others_close_days            :string(255)
 #  publish                      :boolean          default(FALSE), not null
+#  tag_name                     :string(255)
 #  title                        :string(255)
 #  weekly_days                  :string(255)
 #  weekly_repeat                :boolean          default(TRUE), not null
