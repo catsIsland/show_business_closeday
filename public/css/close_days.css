@@ -80,3 +80,7 @@
   background-color: #CC0000;
   color: #fff;
 }
+
+#close_days_calender table {
+  background-color: #fcfcfc;
+}
