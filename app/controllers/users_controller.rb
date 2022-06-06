@@ -17,11 +17,16 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
+      session[:user_name] = user.name
       Setting.create(user_id: user.id)
 
       o = [('0'..'9'),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
       string = (0...25).map { o[rand(o.length)] }.join
-      
+      tag_name = "#{string}_#{user.id}"
+      setting = Setting.find_by(user_id: user.id)
+      setting.tag_name = tag_name
+      setting.save
+      save_js_tag(user.id, tag_name)
 
       redirect_to settings_path
     else
@@ -43,16 +48,9 @@ class UsersController < ApplicationController
   def settings
     account_id = session[:user_id]
     @dai_week_name = ["第-1", "第-2", "第-3", "第-4"]
-    @setting = Setting.find_by(user_id: account_id)
 
-    # o = [('0'..'9'),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
-    # string = (0...25).map { o[rand(o.length)] }.join
-    # tag_name = "#{string}_#{account_id}"
-    # @setting.tag_name = tag_name
-    # @setting.save
-    # save_js_tag(account_id, tag_name)
-    
     # 設定データ
+    @setting = Setting.find_by(user_id: account_id)
     @setting_weekly_days = @setting.weekly_days.blank? ? [] : @setting.weekly_days.split(',').map(&:to_i)
     
     # 定休日の日を取得
