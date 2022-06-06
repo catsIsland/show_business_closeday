@@ -86,7 +86,7 @@ function close_days_show_process(date, close_days) {
   close_days_header = document.createElement('div');
   close_days_calender = document.createElement('div');
   close_day_prev_next = document.createElement('div');
-
+  
   // 全体要素
   $(close_days_wrapper).addClass('close_days_wrapper');
   $(close_days_title).addClass('close_days_title');
@@ -161,5 +161,7 @@ function close_days_create_process(year, month, close_days) {
     }
     calendar += "</tr>";
   }
+  calendar += '</table>'
+  calendar += '<div class="explain_text">※色付きの日付はお休みの日になります</div>';
   return calendar;
 }
