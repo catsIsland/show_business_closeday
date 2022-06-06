@@ -38,3 +38,4 @@ yarn-debug.log*
 # Ignore pidfiles, but keep the directory.
 /public/tag/*
 !/public/tag/.keep
+!/public/tag/GgrQ5gHySOYs4PkDIr2N7yQE3_14.js
