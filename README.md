@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### カレンダーで定休日を表示できる機能になります。
 
-Things you may want to cover:
+- 手順
+- アカウント登録
+- 発行されたタグを対象ウェブサイトに設定する
+- 管理画面で定休日またはそれ以外の日程を選択
+- カレンダーを表示したい要素のid値を設定
+- 背景色、文字色を設定(defaultあり)
+- 公開
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
