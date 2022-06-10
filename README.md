@@ -15,7 +15,8 @@
 
 ### キャプチャ & 資料
 ![管理画面利用用アカウント登録](https://user-images.githubusercontent.com/105359638/172763547-24e76ed6-8041-40ff-a250-aab188f169df.png)
-![管理画面](https://user-images.githubusercontent.com/105359638/172763538-0b87fddc-3d92-4fc5-a922-dc378a60e3b5.png)
 ![管理画面利用用ログインページ](https://user-images.githubusercontent.com/105359638/172763550-f32d88ad-b937-4ab8-9c4a-65d90416581f.png)
+![管理画面](https://user-images.githubusercontent.com/105359638/172763538-0b87fddc-3d92-4fc5-a922-dc378a60e3b5.png)
+
 
 [定休日カレンダー機能.pdf](https://github.com/catsIsland/show_business_day/files/8866729/default.pdf)
